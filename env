@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export CLUSTER_DEPLOY_NAME="bee-kent"
+export CLUSTER_NAME="bee-kent-cluster"
+export CLUSTER_REGION="us-central1"
+export CLUSTER_ZONE="us-central1-b"
