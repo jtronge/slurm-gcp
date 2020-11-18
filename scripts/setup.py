@@ -223,6 +223,9 @@ def install_packages():
         util.run("yum -y install cuda-drivers")
         # Creates the device files
         util.run("nvidia-smi")
+    # install Slurmrestd deps if needed
+    if cfg.slurmrestd:
+        util.run("yum -y install jansson-devel http-parser-devel json-c-devel")
 # END install_packages()
 
 
@@ -517,9 +520,13 @@ def install_slurm():
     if not build_dir.exists():
         build_dir.mkdir(parents=True)
 
+    slurmrestd = cfg.slurmrestd
+    EXTRA_OPTIONS = '--enable-slurmrestd' if slurmrestd else ''
+
     with cd(build_dir):
-        util.run("../configure --prefix={} --sysconfdir={}/etc"
-                 .format(SLURM_PREFIX, CURR_SLURM_DIR), stdout=DEVNULL)
+        util.run("../configure --prefix={} --sysconfdir={}/etc {}"
+                 .format(SLURM_PREFIX, CURR_SLURM_DIR, EXTRA_OPTIONS),
+                 stdout=DEVNULL)
         util.run("make -j install", stdout=DEVNULL)
     with cd(build_dir/'contribs'):
         util.run("make -j install", stdout=DEVNULL)

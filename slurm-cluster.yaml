@@ -102,6 +102,7 @@ resources:
 
     # slurm_version             : 19.05-latest
     # ompi_version              : v3.1.x
+    # slurmrestd                : False
 
     partitions :
       - name              : debug

@@ -347,6 +347,12 @@ properties:
                   <branch name> is a branch in
                   https://github.com/schedmd/slurm.
 
+  slurmrestd:
+    type        : boolean
+    default     : False
+    description : Compile Slurm with slurmrestd support. This requires a Slurm
+                  version of 20 or greater.
+
   suspend_time:
     type        : integer
     default     : 300
