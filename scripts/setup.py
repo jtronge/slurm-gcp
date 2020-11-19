@@ -225,7 +225,7 @@ def install_packages():
         util.run("nvidia-smi")
     # install Slurmrestd deps if needed
     if cfg.slurmrestd:
-        util.run("yum -y install jansson-devel http-parser-devel json-c-devel")
+        util.run("yum -y install jansson-devel libyaml-devel json-c-devel http-parser-devel")
 # END install_packages()
 
 
@@ -520,8 +520,7 @@ def install_slurm():
     if not build_dir.exists():
         build_dir.mkdir(parents=True)
 
-    slurmrestd = cfg.slurmrestd
-    EXTRA_OPTIONS = '--enable-slurmrestd' if slurmrestd else ''
+    EXTRA_OPTIONS = '--enable-slurmrestd' if cfg.slurmrestd else ''
 
     with cd(build_dir):
         util.run("../configure --prefix={} --sysconfdir={}/etc {}"
